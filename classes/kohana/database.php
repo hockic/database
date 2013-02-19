@@ -70,8 +70,11 @@ class Kohana_Database extends PDO {
 			$stmt->execute($params);
 			$result = ( $multiple ) ? $stmt->fetchAll() : $stmt->fetch();
 			
-			// Cache the result
-			Kohana::cache($cache_key, $result, $lifetime);
+			if(Kohana::$environment === Kohana::PRODUCTION)
+			{
+				// Cache the result
+				Kohana::cache($cache_key, $result, $lifetime);
+			}
 		}
 		
 		return $result;
