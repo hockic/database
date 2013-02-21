@@ -45,7 +45,7 @@ class Kohana_Database extends PDO {
 		// Set fetch mode
 		parent::setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, $this->config->fetch_mode );
 
-		if( $this->config['persistent'] !== FALSE )
+		if( $this->config->persistent !== FALSE )
 		{
 			// Make the connection persistent
 			parent::setAttribute( PDO::ATTR_PERSISTENT, TRUE );
