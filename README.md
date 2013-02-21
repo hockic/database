@@ -7,7 +7,7 @@ I really hated the built in database module so i created my own.
 Usage
 -------------
 
-    $stmt = DB::instance()->prepare("SELECT * FROM articles WHERE id = :article_id");
+    $stmt = DB::instance()->prepare("SELECT title FROM articles WHERE id = :article_id");
     $stmt->execute(array(':article_id' => $id));
     $data = $stmt->fetch();
 
