@@ -11,9 +11,9 @@ return array
 	 * string	dsn			Data Source Name
 	 * boolean	persistent	Use persistent connections?
 	 */
-	'username'		=> '',
-	'password'		=> '',
-	'dsn'			=> 'mysql:host=localhost;dbname=db_name;charset=utf8',
+	'username'	=> '',
+	'password'	=> '',
+	'dsn'		=> 'mysql:host=localhost;dbname=db_name;charset=utf8',
 	'persistent'	=> FALSE,
 	'fetch_mode'	=> PDO::FETCH_OBJ
 );
