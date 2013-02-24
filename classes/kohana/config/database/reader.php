@@ -50,20 +50,19 @@ class Kohana_Config_Database_Reader implements Kohana_Config_Reader
 			FROM {$this->_table_name}
 			WHERE group_name = :group_name
 		");
-		
+
 		$statement->execute(array(
 			':group_name'	=> $group
 		));
-		
+
 		// Initialize array
 		$result = array();
-		
+
 		foreach ($statement->fetchAll() as $config)
 		{
 			$result[$config->config_key] = unserialize($config->config_value);
 		}
-		
+
 		return $result;
 	}
-	
 }
