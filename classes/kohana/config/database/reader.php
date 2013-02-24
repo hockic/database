@@ -55,11 +55,15 @@ class Kohana_Config_Database_Reader implements Kohana_Config_Reader
 			':group_name'	=> $group
 		));
 		
-		$config = $statement->fetch(PDO::FETCH_ASSOC);
+		// Initialize array
+		$result = array();
 		
-		$result = array($config['config_key'] => $config['config_value']);
+		foreach ($statement->fetchAll() as $config)
+		{
+			$result[$config->config_key] = unserialize($config->config_value);
+		}
 		
-		return $statement->rowCount() == 1 ? array_map('unserialize', $result) : FALSE;
+		return $result;
 	}
 	
 }
