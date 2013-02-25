@@ -57,14 +57,28 @@ class Kohana_Database extends PDO {
 	 * 
 	 * @param   string   $sql       query string
 	 * @param   array    $params    list of parameters
+	 */
+	public function handle($sql, array $params = NULL)
+	{
+		$stmt = parent::prepare($sql);
+		$stmt->execute($params);
+
+		return $stmt;
+	}
+
+	/**
+	 * Enables the query to be cached for a specified amount of time.
+	 * 
+	 * @param   string   $sql       query string
+	 * @param   array    $params    list of parameters
 	 * @param   boolean  $multiple  whether or not to fetch multiple results
 	 * @param   integer  $lifetime  number of seconds to cache
 	 * @uses    Kohana::cache
 	 */
-	public function cached($sql, array $params = NULL, $multiple = TRUE, $lifetime = NULL)
+	public function cached($sql, array $params = NULL, $multiple = TRUE, $lifetime = NULL, $key = NULL)
 	{
 		// Set the cache key based on the database instance name and SQL
-		$cache_key = 'DB::cached('.serialize(array($sql,$params,$multiple,$lifetime)).')';
+		$cache_key = ($key === NULL) ? 'DB::cached('.serialize(array($sql,$params,$multiple,$lifetime)).')' : $key;
 		
 		// Try to get from cache
 		$result = Kohana::cache($cache_key, NULL, $lifetime);
