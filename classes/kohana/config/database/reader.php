@@ -6,6 +6,7 @@
  * @package    Kohana/Database
  * @category   Configuration
  * @author     Kohana Team
+ * @author     Safet Hočkić
  * @copyright  (c) 2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
@@ -45,24 +46,22 @@ class Kohana_Config_Database_Reader implements Kohana_Config_Reader
 		if ($group === 'database')
 			return FALSE;
 
-		$statement = DB::instance()->prepare("
-			SELECT config_key, config_value
-			FROM {$this->_table_name}
-			WHERE group_name = :group_name
-		");
-
-		$statement->execute(array(
-			':group_name'	=> $group
-		));
-
+		$results = DB::instance()
+					->handle("
+						SELECT config_key, config_value
+						FROM {$this->_table_name}
+						WHERE group_name = :group_name", array(':group_name' => $group))
+					->fetchAll();
+		
 		// Initialize array
-		$result = array();
-
-		foreach ($statement->fetchAll() as $config)
+		$config = array();
+		
+		foreach ($results as $temp)
 		{
-			$result[$config->config_key] = unserialize($config->config_value);
+			$config[$temp->config_key] = unserialize($temp->config_value);
 		}
-
-		return $result;
+		
+		return $config;
 	}
+	
 }
