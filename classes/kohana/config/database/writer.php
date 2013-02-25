@@ -6,6 +6,7 @@
  * @package    Kohana
  * @category   Configuration
  * @author     Kohana Team
+ * @author     Safet Hočkić
  * @copyright  (c) 2007-2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
@@ -82,17 +83,14 @@ class Kohana_Config_Database_Writer extends Config_Database_Reader implements Ko
 	 */
 	protected function _insert($group, $key, $config)
 	{
-		$statement = DB::instance()->prepare("
+		DB::instance()->handle("
 			INSERT INTO {$this->_table_name} (group_name, config_key, config_value)
-			VALUES (:group_name, :config_key, :config_value)
-		");
-		
-		$statement->execute(array(
-			':group_name'	=> $group,
-			':config_key'	=> $key,
-			':config_value'	=> $config
+			VALUES (:group_name, :config_key, :config_value)", array(
+				':group_name'	=> $group,
+				':config_key'	=> $key,
+				':config_value'	=> $config
 		));
-
+		
 		return $this;
 	}
 
@@ -106,17 +104,14 @@ class Kohana_Config_Database_Writer extends Config_Database_Reader implements Ko
 	 */
 	protected function _update($group, $key, $config)
 	{
-		$statement = DB::instance()->prepare("
+		$statement = DB::instance()->handle("
 			UPDATE {$this->_table_name}
 			SET config_value = :config_value
 			WHERE group_name = :group_name
-			AND config_key = :config_key
-		");
-		
-		$statement->execute(array(
-			':group_name'	=> $group,
-			':config_key'	=> $key,
-			':config_value'	=> $config
+			AND config_key = :config_key", array(
+				':group_name'	=> $group,
+				':config_key'	=> $key,
+				':config_value'	=> $config
 		));
 
 		return $this;
