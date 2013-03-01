@@ -63,7 +63,7 @@ class Kohana_Config_Database_Writer extends Config_Database_Reader implements Ko
 			{
 				$this->_insert($group, $key, $config);
 			}
-			catch (Database_Exception $e)
+			catch (Exception $e)
 			{
 				// Attempt to run an update instead
 				$this->_update($group, $key, $config);
@@ -83,6 +83,18 @@ class Kohana_Config_Database_Writer extends Config_Database_Reader implements Ko
 	 */
 	protected function _insert($group, $key, $config)
 	{
+		$key_count = DB::instance()->handle("
+						SELECT config_key FROM {$this->_table_name}
+						WHERE group_name = :group_name
+						AND config_key = :config_key", array(
+							':group_name'	=> $group,
+							':config_key'	=> $key
+					))->rowCount();
+
+		// Check if key already exists
+		if($key_count != 0)
+			throw new Exception();
+
 		DB::instance()->handle("
 			INSERT INTO {$this->_table_name} (group_name, config_key, config_value)
 			VALUES (:group_name, :config_key, :config_value)", array(
@@ -90,7 +102,7 @@ class Kohana_Config_Database_Writer extends Config_Database_Reader implements Ko
 				':config_key'	=> $key,
 				':config_value'	=> $config
 		));
-		
+
 		return $this;
 	}
 
@@ -104,11 +116,9 @@ class Kohana_Config_Database_Writer extends Config_Database_Reader implements Ko
 	 */
 	protected function _update($group, $key, $config)
 	{
-		$statement = DB::instance()->handle("
-			UPDATE {$this->_table_name}
-			SET config_value = :config_value
-			WHERE group_name = :group_name
-			AND config_key = :config_key", array(
+		DB::instance()->handle("
+			UPDATE {$this->_table_name} SET config_value = :config_value
+			WHERE group_name = :group_name AND config_key = :config_key", array(
 				':group_name'	=> $group,
 				':config_key'	=> $key,
 				':config_value'	=> $config
