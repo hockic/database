@@ -4,9 +4,9 @@
  * 
  * @package		Kohana_Database
  * @author		Safet Hočkić - q7eb2a
- * @copyright	(c)2013 Safet Hočkić
+ * @copyright		(c)2013 Safet Hočkić
  * @license		http://www.opensource.org/licenses/isc-license.txt
- * @link		https://github.com/q7eb2a/kohana-database-module
+ * @link		https://github.com/q7eb2a/database
  */
 class Kohana_Database extends PDO {
 
