@@ -14,10 +14,34 @@ Plain PDO
     // Fetch method is PDO::FETCH_OBJ by default so you would do something like this to get the title
     echo $data->title
 
-Built in method
+Shorhand prepared statement
 -------------
     $data = DB::instance()
             ->handle("SELECT title FROM articles WHERE id = :article_id", array(':article_id' => $id))
             ->fetch();
 
     echo $data->title
+
+Shorhand update
+-------------
+
+    /**
+     * @see DB::update
+     */
+    $data = DB::instance->update('articles', array('title' => 'New title', 'body' => 'New body'), array('id' => $id))
+    
+Shorhand delete
+-------------
+
+    /**
+     * @see DB::update
+     */
+    $data = DB::instance->delete('articles', array('id' => $id))
+    
+Shorhand insert
+-------------
+
+    /**
+     * @see DB::update
+     */
+    $data = DB::instance->delete('articles', array('title' => 'Article title', 'body' => 'Article body'))
