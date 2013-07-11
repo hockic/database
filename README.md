@@ -28,20 +28,20 @@ Shorhand update
     /**
      * @see DB::update
      */
-    $data = DB::instance->update('articles', array('title' => 'New title', 'body' => 'New body'), array('id' => $id))
-    
+    DB::instance->update('articles', array('title' => 'New title', 'body' => 'New body'), array('id' => $id))
+
 Shorhand delete
 -------------
 
     /**
-     * @see DB::update
+     * @see DB::delete
      */
-    $data = DB::instance->delete('articles', array('id' => $id))
-    
+    DB::instance->delete('articles', array('id' => $id))
+
 Shorhand insert
 -------------
 
     /**
-     * @see DB::update
+     * @see DB::insert
      */
-    $data = DB::instance->delete('articles', array('title' => 'Article title', 'body' => 'Article body'))
+    DB::instance->insert('articles', array('title' => 'Article title', 'body' => 'Article body'))
