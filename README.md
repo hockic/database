@@ -1,7 +1,7 @@
-PDO wrapper for Kohana 3.2
+PDO wrapper for Kohana 3.x
 -------------
 
-I really hated the built in database module so i created my own.
+A clean, simple and lightweight PDO wrapper for Kohana 3.x
 
 
 Plain PDO
