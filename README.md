@@ -28,7 +28,7 @@ Shorhand update
     /**
      * @see DB::update
      */
-    DB::instance->update('articles', array('title' => 'New title', 'body' => 'New body'), array('id' => $id))
+    DB::instance()->update('articles', array('title' => 'New title', 'body' => 'New body'), array('id' => $id))
 
 Shorhand delete
 -------------
@@ -36,7 +36,7 @@ Shorhand delete
     /**
      * @see DB::delete
      */
-    DB::instance->delete('articles', array('id' => $id))
+    DB::instance()->delete('articles', array('id' => $id))
 
 Shorhand insert
 -------------
@@ -44,4 +44,4 @@ Shorhand insert
     /**
      * @see DB::insert
      */
-    DB::instance->insert('articles', array('title' => 'Article title', 'body' => 'Article body'))
+    DB::instance()->insert('articles', array('title' => 'Article title', 'body' => 'Article body'))
